@@ -1,0 +1,1 @@
+Rn.NetCore.Metrics.Rabbit
