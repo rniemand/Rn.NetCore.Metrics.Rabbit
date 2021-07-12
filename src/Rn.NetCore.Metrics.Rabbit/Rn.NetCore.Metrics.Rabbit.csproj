@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>5.0.1.100</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Richard Niemand</Authors>
+    <Company>Richard Niemand</Company>
+    <Description>Core libs for my various projects</Description>
+    <NeutralLanguage>en</NeutralLanguage>
+    <AssemblyVersion>5.0.1.100</AssemblyVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+    <PackageReference Include="Rn.NetCore.Common" Version="5.0.1.100" />
+  </ItemGroup>
+
+</Project>
