@@ -43,7 +43,6 @@ namespace Rn.NetCore.Metrics.Rabbit.Config
 
     public RabbitOutputConfig()
     {
-      // TODO: [TESTS] (RabbitOutputConfig) Add tests
       Enabled = false;
       Username = "guest";
       Password = "guest";
