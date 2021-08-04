@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 using RabbitMQ.Client;
 using Rn.NetCore.Common.Abstractions;
 using Rn.NetCore.Common.Logging;
-using Rn.NetCore.Common.Metrics.Models;
 using Rn.NetCore.Metrics.Rabbit.Config;
+using Rn.NetCore.Metrics.Rabbit.Interfaces;
+using Rn.NetCore.Metrics.Rabbit.Models;
 
 namespace Rn.NetCore.Metrics.Rabbit
 {
-  public interface IRabbitConnection
-  {
-    void Configure(RabbitOutputConfig config);
-    Task SubmitPoint(LineProtocolPoint point);
-    Task SubmitPoints(List<LineProtocolPoint> points);
-  }
-
   public class RabbitConnection : IRabbitConnection
   {
     private readonly ILoggerAdapter<RabbitConnection> _logger;
