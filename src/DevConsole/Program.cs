@@ -9,9 +9,11 @@ using Rn.NetCore.Common.Encryption;
 using Rn.NetCore.Common.Helpers;
 using Rn.NetCore.Common.Logging;
 using Rn.NetCore.Common.Metrics;
+using Rn.NetCore.Common.Metrics.Builders;
 using Rn.NetCore.Common.Metrics.Interfaces;
-using Rn.NetCore.Common.Metrics.Outputs;
 using Rn.NetCore.Common.Wrappers;
+using Rn.NetCore.Metrics.Rabbit;
+using Rn.NetCore.Metrics.Rabbit.Interfaces;
 
 namespace DevConsole
 {
@@ -24,9 +26,11 @@ namespace DevConsole
     {
       ConfigureDI();
 
-      var path = _serviceProvider.GetRequiredService<IPath>();
+      var metrics = _serviceProvider.GetRequiredService<IMetricService>();
 
-      var tempFileName = path.GetTempFileName();
+      var builder = new ServiceMetricBuilder(nameof(Program), nameof(Main));
+
+      metrics.SubmitMetric(builder);
 
       _logger.Info("All Done!");
     }
@@ -42,27 +46,34 @@ namespace DevConsole
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .Build();
 
-      ConfigureDI_Configuration(services, config);
-      ConfigureDI_Core(services, config);
-      ConfigureDI_Metrics(services);
-
-      _serviceProvider = services.BuildServiceProvider();
-      _logger = _serviceProvider.GetService<ILoggerAdapter<Program>>();
-    }
-
-    private static void ConfigureDI_Core(IServiceCollection services, IConfiguration config)
-    {
       services
-        .AddSingleton(config)
-        .AddSingleton(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>))
+        // Configuration
+        .AddSingleton<IConfiguration>(config)
+
+        // Services
         .AddSingleton<IEncryptionService, EncryptionService>()
         .AddSingleton<IEncryptionUtils, EncryptionUtils>()
+
+        // Abstractions
         .AddSingleton<IDateTimeAbstraction, DateTimeAbstraction>()
-        .AddSingleton<IJsonHelper, JsonHelper>()
         .AddSingleton<IEnvironmentAbstraction, EnvironmentAbstraction>()
         .AddSingleton<IDirectoryAbstraction, DirectoryAbstraction>()
         .AddSingleton<IFileAbstraction, FileAbstraction>()
+
+        // Helpers
+        .AddSingleton<IJsonHelper, JsonHelper>()
+
+        // Wrappers
         .AddSingleton<IPath, PathWrapper>()
+
+        // Metrics
+        .AddSingleton<IMetricService, MetricService>()
+        .AddSingleton<IRabbitFactory, RabbitFactory>()
+        .AddSingleton<IRabbitConnection, RabbitConnection>()
+        .AddSingleton<IMetricOutput, RabbitMetricOutput>()
+
+        // Logging
+        .AddSingleton(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>))
         .AddLogging(loggingBuilder =>
         {
           // configure Logging with NLog
@@ -70,18 +81,11 @@ namespace DevConsole
           loggingBuilder.SetMinimumLevel(LogLevel.Trace);
           loggingBuilder.AddNLog(config);
         });
-    }
 
-    private static void ConfigureDI_Configuration(IServiceCollection services, IConfiguration config)
-    {
-      // Complete
-    }
+      _serviceProvider = services.BuildServiceProvider();
 
-    private static void ConfigureDI_Metrics(IServiceCollection services)
-    {
-      services
-        .AddSingleton<IMetricService, MetricService>()
-        .AddSingleton<IMetricOutput, CsvMetricOutput>();
+      _serviceProvider = services.BuildServiceProvider();
+      _logger = _serviceProvider.GetService<ILoggerAdapter<Program>>();
     }
   }
 }
