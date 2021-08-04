@@ -9,7 +9,7 @@
     <Company>Richard Niemand</Company>
     <Description>Core libs for my various projects</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>5.0.1.102</AssemblyVersion>
+    <AssemblyVersion>5.0.1.104</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
