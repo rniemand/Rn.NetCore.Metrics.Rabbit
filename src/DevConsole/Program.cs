@@ -11,6 +11,7 @@ using Rn.NetCore.Common.Logging;
 using Rn.NetCore.Common.Metrics;
 using Rn.NetCore.Common.Metrics.Interfaces;
 using Rn.NetCore.Common.Metrics.Outputs;
+using Rn.NetCore.Common.Wrappers;
 
 namespace DevConsole
 {
@@ -23,7 +24,7 @@ namespace DevConsole
     {
       ConfigureDI();
 
-      var path = _serviceProvider.GetRequiredService<IPathAbstraction>();
+      var path = _serviceProvider.GetRequiredService<IPath>();
 
       var tempFileName = path.GetTempFileName();
 
@@ -61,7 +62,7 @@ namespace DevConsole
         .AddSingleton<IEnvironmentAbstraction, EnvironmentAbstraction>()
         .AddSingleton<IDirectoryAbstraction, DirectoryAbstraction>()
         .AddSingleton<IFileAbstraction, FileAbstraction>()
-        .AddSingleton<IPathAbstraction, PathAbstraction>()
+        .AddSingleton<IPath, PathWrapper>()
         .AddLogging(loggingBuilder =>
         {
           // configure Logging with NLog

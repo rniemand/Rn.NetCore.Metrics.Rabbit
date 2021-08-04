@@ -39,23 +39,34 @@ namespace Rn.NetCore.Metrics.Rabbit
     }
 
     // Interface methods
-    public async Task SubmitPoint(LineProtocolPoint point)
-    {
-      // TODO: [TESTS] (RabbitMetricOutput.SubmitPoint) Add tests
-      if(!Enabled)
-        return;
+    //public async Task SubmitPoint(LineProtocolPoint point)
+    //{
+    //  // TODO: [TESTS] (RabbitMetricOutput.SubmitPoint) Add tests
+    //  if(!Enabled)
+    //    return;
 
-      await _connection.SubmitPoint(point);
+    //  await _connection.SubmitPoint(point);
+    //}
+
+    //public async Task SubmitPoints(List<LineProtocolPoint> points)
+    //{
+    //  // TODO: [TESTS] (RabbitMetricOutput.SubmitPoints) Add tests
+    //  if(!Enabled)
+    //    return;
+
+    //  await _connection.SubmitPoints(points);
+    //}
+
+    public Task SubmitMetric(RawMetric metric)
+    {
+      throw new System.NotImplementedException();
     }
 
-    public async Task SubmitPoints(List<LineProtocolPoint> points)
+    public Task SubmitMetrics(List<RawMetric> metrics)
     {
-      // TODO: [TESTS] (RabbitMetricOutput.SubmitPoints) Add tests
-      if(!Enabled)
-        return;
-
-      await _connection.SubmitPoints(points);
+      throw new System.NotImplementedException();
     }
+
 
     // Configuration related methods
     private RabbitOutputConfig BindConfiguration(IConfiguration configuration)
