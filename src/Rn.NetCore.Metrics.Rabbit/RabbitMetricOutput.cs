@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Rn.NetCore.Common.Logging;
@@ -39,32 +40,21 @@ namespace Rn.NetCore.Metrics.Rabbit
     }
 
     // Interface methods
-    //public async Task SubmitPoint(LineProtocolPoint point)
-    //{
-    //  // TODO: [TESTS] (RabbitMetricOutput.SubmitPoint) Add tests
-    //  if(!Enabled)
-    //    return;
+    public async Task SubmitMetric(RawMetric metric)
+      => await SubmitMetrics(new List<RawMetric> {metric});
 
-    //  await _connection.SubmitPoint(point);
-    //}
-
-    //public async Task SubmitPoints(List<LineProtocolPoint> points)
-    //{
-    //  // TODO: [TESTS] (RabbitMetricOutput.SubmitPoints) Add tests
-    //  if(!Enabled)
-    //    return;
-
-    //  await _connection.SubmitPoints(points);
-    //}
-
-    public Task SubmitMetric(RawMetric metric)
+    public async Task SubmitMetrics(List<RawMetric> metrics)
     {
-      throw new System.NotImplementedException();
-    }
+      // TODO: [TESTS] (RabbitMetricOutput.SubmitMetrics) Add tests
+      var points = metrics.Select(metric =>
+        new LineProtocolPoint(
+          metric.Measurement,
+          metric.Fields,
+          metric.Tags,
+          metric.UtcTimestamp
+        )).ToList();
 
-    public Task SubmitMetrics(List<RawMetric> metrics)
-    {
-      throw new System.NotImplementedException();
+      await _connection.SubmitPoints(points);
     }
 
 
