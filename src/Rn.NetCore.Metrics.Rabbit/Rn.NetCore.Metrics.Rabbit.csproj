@@ -3,13 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.0.1.102</Version>
+    <Version>5.0.1.105</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Richard Niemand</Authors>
     <Company>Richard Niemand</Company>
     <Description>Core libs for my various projects</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>5.0.1.104</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
