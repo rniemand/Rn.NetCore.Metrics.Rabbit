@@ -1,22 +1,46 @@
+# MANUAL :: .\ci-test.ps1 -output (pwd)
+
 param (
-  $output             = $PSScriptRoot,
-  $testCsprojPattern  = "*T1.Tests.csproj",
-  $configuration      = "Release",
-  $frameworkVersion   = "net5.0"
+  [Parameter(Mandatory=$false)]
+  [string] $rootDir = $PSScriptRoot,
+
+  [Parameter(Mandatory=$false)]
+  [string] $testCsprojPattern = "*T1.Tests.csproj",
+
+  [Parameter(Mandatory=$false)]
+  [string] $configuration = "Release",
+
+  [Parameter(Mandatory=$false)]
+  [string] $frameworkVersion = "net5.0"
 )
 
-$output                = Join-Path $output "\";
-$workingRoot           = Join-Path $PSScriptRoot "\";
+$rootDir               = Join-Path $rootDir "\";
+$sourceDir             = Join-Path $rootDir "src\";
+$publishDir            = Join-Path $rootDir "artifacts\";
+$toolsDir              = Join-Path $rootDir "tools\";
+$testPublishDir        = Join-Path $publishDir "t1-publish\";
+$testResultsDir        = Join-Path $publishDir "t1-results\";
+$testCoverageDir       = Join-Path $publishDir "t1-coverage\";
+$coverletExe           = Join-Path $toolsDir "coverlet.exe";
+$reportGeneratorExe    = Join-Path $toolsDir "reportgenerator.exe"
 
-$sourceDir             = Join-Path $workingRoot "src";
-$publishDir            = Join-Path $output "artifacts";
-$toolsDir              = Join-Path $workingRoot "tools";
-$testPublishDir        = Join-Path $publishDir "t1-publish";
-$testResultsDir        = Join-Path $publishDir "t1-results";
-$testCoverageDir       = Join-Path $publishDir "t1-coverage";
-$coverletExe           = "$toolsDir\coverlet.exe";
-$reportGeneratorExe    = "$toolsDir\reportgenerator.exe"
-
+# =============================================================================
+# Info Dumping
+# =============================================================================
+#
+Write-Output ("=============================================================");
+Write-Output ("= ci-test.ps1 :: information");
+Write-Output ("=============================================================");
+Write-Output ("= rootDir            : $rootDir");
+Write-Output ("= sourceDir          : $sourceDir");
+Write-Output ("= publishDir         : $publishDir");
+Write-Output ("= toolsDir           : $toolsDir");
+Write-Output ("= testPublishDir     : $testPublishDir");
+Write-Output ("= testResultsDir     : $testResultsDir");
+Write-Output ("= testCoverageDir    : $testCoverageDir");
+Write-Output ("= coverletExe        : $coverletExe");
+Write-Output ("= reportGeneratorExe : $reportGeneratorExe");
+Write-Output ("=============================================================");
 
 # ==============================================================
 # Cleanup
@@ -39,13 +63,13 @@ foreach ($cleanupDirectory in $cleanupDirectories) {
 #
 $installCmd = "";
 
-if(!(Test-Path $coverletExe)){
+if(!(Test-Path $coverletExe)) {
   Write-Host "Installing: coverlet.console"
   $installCmd = "dotnet tool install coverlet.console --tool-path $toolsDir";
   Invoke-Expression -Command $installCmd -ErrorAction 'Continue';
 }
 
-if(!(Test-Path $reportGeneratorExe)){
+if(!(Test-Path $reportGeneratorExe)) {
   Write-Host "Installing: reportgenerator.exe"
   $installCmd = "dotnet tool install dotnet-reportgenerator-globaltool --tool-path `"$toolsDir`"";
   Invoke-Expression -Command $installCmd -ErrorAction 'Continue';
@@ -61,34 +85,34 @@ if ($testProjects.count -eq 0) {
   throw "No files matched the $testCsprojPattern pattern. The script cannot continue."
 }
 
-$buildCmd          = "";
-$currentPublishDir = "";
-
+Write-Output ("Found " + $testProjects.count + " test project(s) to build and run");
 foreach ($testProject in $testProjects) {
-  # Build test project
+  # ---------------------------------------------------- >>
+  # Generate required paths
   $dllFileName         = $testProject.BaseName + ".dll";
-  $currentPublishDir   = Join-Path $testPublishDir $testProject.BaseName
-  $testDllFile         = Join-Path $currentPublishDir $dllFileName;
-  $buildCmd            = "dotnet build `"$testProject`" --configuration $configuration";
-  Write-Output         "Running Build: $buildCmd"
-  Invoke-Expression    $buildCmd;
+  $testSrcDir          = Join-Path $testProject.Directory.FullName "\";
+  $testBinDir          = Join-Path $testSrcDir "bin\";
+  $testBinConfigDir    = Join-Path $testBinDir ($configuration + "\");
+  $testFrameworkDir    = Join-Path $testBinConfigDir ($frameworkVersion + "\");
+  $testDllFile         = Join-Path $testFrameworkDir $dllFileName;
+  $csprojFullPath      = $testProject.FullName;
 
-  # Build published DLL file path
-  $projectBaseDir      = Join-Path $testProject.Directory.FullName "\";
-  $projectBinDir       = Join-Path $projectBaseDir "bin\";
-  $projectBinCfgDir    = Join-Path $projectBinDir ($configuration + "\");
-  $projectFrameworkDir = Join-Path $projectBinCfgDir ($frameworkVersion + "\");
-  $testDllFile         = Join-Path $projectFrameworkDir $dllFileName;
+  # ---------------------------------------------------- >>
+  # Restore and build the project
+  $buildCmd = "dotnet build `"$csprojFullPath`" --configuration $configuration";
+  Write-Output ("(INFO) Building test project :: $buildCmd");
+  Invoke-Expression $buildCmd;
 
-  if(!(Test-Path $testDllFile)) {
-    throw "Unable to find test DLL file: $testDllFile"
+  # Ensure that the expected test DLL file exists
+  if(!(Test-Path -Path $testDllFile)) {
+    throw "Unable to find test DLL file - $testDllFile";
   }
-  
+
+  # ---------------------------------------------------- >>
   # Generate coverage report
   $testResultFileName   = Join-Path $testResultsDir "$( $testProject.BaseName )_results.trx";
-  $coverageOutputDirTmp = Join-Path $testCoverageDir $testProject.BaseName;
-  $coverageOutputDir    = Join-Path $coverageOutputDirTmp "\";
-
+  $coverageOutputDir    = Join-Path $testCoverageDir ($testProject.BaseName + "\");
+  
   # https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
   $dotnetTestTargetArgs = @(
     "test",
@@ -98,7 +122,7 @@ foreach ($testProject in $testProjects) {
     "--no-build", 
     "--no-restore"
   );
-  
+
   # https://www.jetbrains.com/help/dotcover/dotCover__Console_Runner_Commands.html
   $coverletDotnetArguments = @(
     "$testDllFile",
@@ -110,6 +134,6 @@ foreach ($testProject in $testProjects) {
   );
 
   $coverletCmd = "$coverletExe $coverletDotnetArguments";
-  Write-Output "Executing Coverlet with following arguments: $coverletCmd";
+  Write-Output ("Running coverage :: $coverletCmd");
   Invoke-Expression -Command $coverletCmd;
 }

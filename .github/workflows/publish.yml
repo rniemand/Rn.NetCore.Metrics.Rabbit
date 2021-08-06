@@ -43,29 +43,24 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: powershell
         run: |
-          $workingDir     = $PSScriptRoot
-          $artifactsDir   = Join-Path $workingDir "artifacts"
-          $sqReportPaths  = "$artifactsDir/t1-coverage/**/coverage.opencover.xml"
-          $expression     = ""
+          $rootDir         = Join-Path $env:GITHUB_WORKSPACE "\";
+          $artifactsDir    = Join-Path $rootDir "artifacts\";
+          $sqReportPaths   = ($artifactsDir + "t1-coverage/**/coverage.opencover.xml");
+          $projectName     = "Rn.NetCore.Metrics.Rabbit";
           
           $sonarQubeParams = @(
             "/k:`"${{ secrets.SONAR_PROJECT }}`"",
             "/d:sonar.host.url=`"${{ secrets.SONAR_HOST_URL }}`"",
             "/d:sonar.login=`"${{ secrets.SONAR_TOKEN }}`"",
             "/d:sonar.cs.opencover.reportsPaths=`"$sqReportPaths`""
-          )
+          );
           
-          $expression = ".\.sonar\scanner\dotnet-sonarscanner begin $sonarQubeParams"
-          Invoke-Expression $expression
+          Invoke-Expression (".\.sonar\scanner\dotnet-sonarscanner begin $sonarQubeParams");
+          Invoke-Expression (".\ci-build.ps1 -project `"$projectName`"");
+          Invoke-Expression (".\ci-test.ps1");
+          Invoke-Expression (".\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=`"${{ secrets.SONAR_TOKEN }}`"");
           
-          $expression = ".\ci-build.ps1 -project `"Rn.NetCore.Metrics.Rabbit`" -output `"$workingDir`""
-          Invoke-Expression $expression
-
-          $expression = ".\ci-test.ps1 -output `"$workingDir`""
-          Invoke-Expression $expression
-          
-          $expression = ".\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=`"${{ secrets.SONAR_TOKEN }}`""
-          Invoke-Expression $expression
+          # Fin.
 
       - name: Publish Rn.NetCore.Metrics.Rabbit
         id: publish_nuget
