@@ -18,7 +18,6 @@ namespace Rn.NetCore.Metrics.Rabbit
 
     private readonly ILoggerAdapter<RabbitMetricOutput> _logger;
     private readonly IRabbitConnection _connection;
-    private readonly RabbitOutputConfig _config;
 
     public const string ConfigKey = "RnCore:Metrics:RabbitOutput";
 
@@ -30,23 +29,23 @@ namespace Rn.NetCore.Metrics.Rabbit
       // TODO: [TESTS] (RabbitMetricOutput) Add tests
       _logger = logger;
       _connection = connection;
-      _config = BindConfiguration(configuration);
+      var config = BindConfiguration(configuration);
 
-      Enabled = _config.Enabled;
+      Enabled = config.Enabled;
       Name = nameof(RabbitMetricOutput);
 
       if (!Enabled)
         return;
 
-      _connection.Configure(_config);
+      _connection.Configure(config);
     }
 
 
     // Interface methods
-    public async Task SubmitMetric(RawMetric metric)
-      => await SubmitMetrics(new List<RawMetric> { metric });
+    public async Task SubmitMetric(CoreMetric metric)
+      => await SubmitMetrics(new List<CoreMetric> { metric });
 
-    public async Task SubmitMetrics(List<RawMetric> metrics)
+    public async Task SubmitMetrics(List<CoreMetric> metrics)
     {
       // TODO: [TESTS] (RabbitMetricOutput.SubmitMetrics) Add tests
       var points = metrics.Select(metric =>
