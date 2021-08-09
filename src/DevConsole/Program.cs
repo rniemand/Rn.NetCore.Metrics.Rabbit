@@ -64,7 +64,7 @@ namespace DevConsole
         .AddSingleton<IJsonHelper, JsonHelper>()
 
         // Wrappers
-        .AddSingleton<IPath, PathWrapper>()
+        .AddSingleton<IPathAbstraction, PathAbstraction>()
 
         // Metrics
         .AddSingleton<IMetricServiceUtils, MetricServiceUtils>()
