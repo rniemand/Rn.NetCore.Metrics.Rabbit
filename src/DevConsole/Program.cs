@@ -30,7 +30,7 @@ namespace DevConsole
 
       var builder = new ServiceMetricBuilder(nameof(Program), nameof(Main));
 
-      metrics.SubmitMetric(builder);
+      metrics.SubmitBuilder(builder);
 
       _logger.Info("All Done!");
     }
