@@ -67,6 +67,7 @@ namespace DevConsole
         .AddSingleton<IPath, PathWrapper>()
 
         // Metrics
+        .AddSingleton<IMetricServiceUtils, MetricServiceUtils>()
         .AddSingleton<IMetricService, MetricService>()
         .AddSingleton<IRabbitFactory, RabbitFactory>()
         .AddSingleton<IRabbitConnection, RabbitConnection>()
