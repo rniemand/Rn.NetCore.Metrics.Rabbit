@@ -5,12 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using Rn.NetCore.Common.Abstractions;
-using Rn.NetCore.Common.Encryption;
 using Rn.NetCore.Common.Helpers;
 using Rn.NetCore.Common.Logging;
 using Rn.NetCore.Common.Metrics;
 using Rn.NetCore.Common.Metrics.Builders;
 using Rn.NetCore.Common.Metrics.Interfaces;
+using Rn.NetCore.Common.Services;
 using Rn.NetCore.Common.Wrappers;
 using Rn.NetCore.Metrics.Rabbit;
 using Rn.NetCore.Metrics.Rabbit.Interfaces;
@@ -52,7 +52,7 @@ namespace DevConsole
 
         // Services
         .AddSingleton<IEncryptionService, EncryptionService>()
-        .AddSingleton<IEncryptionUtils, EncryptionUtils>()
+        .AddSingleton<IEncryptionHelper, EncryptionHelper>()
 
         // Abstractions
         .AddSingleton<IDateTimeAbstraction, DateTimeAbstraction>()
