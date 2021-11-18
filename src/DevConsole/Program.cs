@@ -7,11 +7,9 @@ using NLog.Extensions.Logging;
 using Rn.NetCore.Common.Abstractions;
 using Rn.NetCore.Common.Helpers;
 using Rn.NetCore.Common.Logging;
-using Rn.NetCore.Common.Metrics;
-using Rn.NetCore.Common.Metrics.Builders;
-using Rn.NetCore.Common.Metrics.Interfaces;
-using Rn.NetCore.Common.Services;
-using Rn.NetCore.Common.Wrappers;
+using Rn.NetCore.Metrics;
+using Rn.NetCore.Metrics.Builders;
+using Rn.NetCore.Metrics.Outputs;
 using Rn.NetCore.Metrics.Rabbit;
 using Rn.NetCore.Metrics.Rabbit.Interfaces;
 
@@ -49,10 +47,6 @@ namespace DevConsole
       services
         // Configuration
         .AddSingleton<IConfiguration>(config)
-
-        // Services
-        .AddSingleton<IEncryptionService, EncryptionService>()
-        .AddSingleton<IEncryptionHelper, EncryptionHelper>()
 
         // Abstractions
         .AddSingleton<IDateTimeAbstraction, DateTimeAbstraction>()
