@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
-    <PackageReference Include="Rn.NetCore.Common" Version="5.0.1.152" />
-    <PackageReference Include="Rn.NetCore.Metrics" Version="5.0.0.101" />
+    <PackageReference Include="Rn.NetCore.Common" Version="6.0.0.100" />
+    <PackageReference Include="Rn.NetCore.Metrics" Version="6.0.0.100" />
   </ItemGroup>
 
 </Project>
