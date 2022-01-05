@@ -69,7 +69,7 @@ namespace Rn.NetCore.Metrics.Rabbit
 
       if (!configSection.Exists())
       {
-        _logger.Warning(
+        _logger.LogWarning(
           "Unable to find configuration section '{key}', using defaults",
           ConfigKey
         );

@@ -30,7 +30,7 @@ namespace DevConsole
 
       metrics.SubmitBuilder(builder);
 
-      _logger.Info("All Done!");
+      _logger.LogInformation("All Done!");
     }
 
 

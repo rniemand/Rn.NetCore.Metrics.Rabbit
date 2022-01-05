@@ -85,7 +85,7 @@ namespace Rn.NetCore.Metrics.Rabbit
       if (_channel == null && _connection == null)
         return;
 
-      _logger.Trace("Tearing down RabbitMQ connection");
+      _logger.LogTrace("Tearing down RabbitMQ connection");
 
       try
       {
@@ -107,7 +107,7 @@ namespace Rn.NetCore.Metrics.Rabbit
     private void CreateConnectionFactory()
     {
       // TODO: [TESTS] (RabbitConnection.CreateConnectionFactory) Add tests
-      _logger.Trace("Creating new connection factory");
+      _logger.LogTrace("Creating new connection factory");
       _connectionFactory = _rabbitFactory.CreateConnectionFactory(_config);
     }
 
@@ -230,7 +230,7 @@ namespace Rn.NetCore.Metrics.Rabbit
       // Temporarily disable the connection for a few seconds
       _disabledUntil = _dateTime.Now.AddSeconds(_config.BackOffTimeSec);
 
-      _logger.Info(
+      _logger.LogInformation(
         "Backing off Rabbit connection for {s} second(s), will try again at {d}",
         _config.BackOffTimeSec,
         _disabledUntil
@@ -253,7 +253,7 @@ namespace Rn.NetCore.Metrics.Rabbit
       // Enter into a cooldown in hopes that the RabbitMQ connection will come back
       _disabledUntil = _dateTime.Now.AddSeconds(_config.CoolDownTimeSec);
 
-      _logger.Warning(
+      _logger.LogWarning(
         "Failed to communicate with RabbitMQ {x} time(s) in a row - backing off until {d}",
         _config.CoolDownThreshold,
         _disabledUntil
@@ -263,7 +263,7 @@ namespace Rn.NetCore.Metrics.Rabbit
     private void HandleMaxCoolDownRuns()
     {
       // TODO: [TESTS] (RabbitConnection.HandleMaxCoolDownRuns) Add tests
-      _logger.Error("It seems that we are unable to connect to RabbitMQ, disabling output");
+      _logger.LogError("It seems that we are unable to connect to RabbitMQ, disabling output");
 
       _connectionEnabled = false;
       _connectionErrorCount = 0;
