@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
 	  <ProjectGuid>CB686B7F-932D-4497-A7A5-3D0031FE9BDC</ProjectGuid>
+	  <CodeAnalysisRuleSet>..\.sonarlint\rn-netcore-metrics-rabbitmqcsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
