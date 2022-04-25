@@ -3,18 +3,19 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>6.0.0.103</Version>
+    <Version>6.0.0.104</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Richard Niemand</Authors>
     <Company>Richard Niemand</Company>
     <Description>Core libs for my various projects</Description>
     <NeutralLanguage>en</NeutralLanguage>
+	  <ProjectGuid>6D47280B-9275-42A9-B9E8-D3B0AC4987C6</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
-    <PackageReference Include="Rn.NetCore.Common" Version="6.0.0.107" />
-    <PackageReference Include="Rn.NetCore.Metrics" Version="6.0.0.102" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.4" />
+    <PackageReference Include="Rn.NetCore.Common" Version="6.0.0.109" />
+    <PackageReference Include="Rn.NetCore.Metrics" Version="6.0.0.103" />
   </ItemGroup>
 
 </Project>

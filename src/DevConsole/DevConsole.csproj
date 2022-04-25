@@ -3,15 +3,17 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+	  <ProjectGuid>CB686B7F-932D-4497-A7A5-3D0031FE9BDC</ProjectGuid>
+	  <CodeAnalysisRuleSet>..\.sonarlint\rn-netcore-metrics-rabbitmqcsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="NLog" Version="4.7.13" />
+    <PackageReference Include="NLog" Version="4.7.15" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.7.4" />
-    <PackageReference Include="Rn.NetCore.Common" Version="6.0.0.107" />
+    <PackageReference Include="Rn.NetCore.Common" Version="6.0.0.109" />
   </ItemGroup>
 
   <ItemGroup>

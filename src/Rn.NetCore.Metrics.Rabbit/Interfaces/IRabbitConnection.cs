@@ -3,12 +3,11 @@ using System.Threading.Tasks;
 using Rn.NetCore.Metrics.Rabbit.Config;
 using Rn.NetCore.Metrics.Rabbit.Models;
 
-namespace Rn.NetCore.Metrics.Rabbit.Interfaces
+namespace Rn.NetCore.Metrics.Rabbit.Interfaces;
+
+public interface IRabbitConnection
 {
-  public interface IRabbitConnection
-  {
-    void Configure(RabbitOutputConfig config);
-    Task SubmitPoint(LineProtocolPoint point);
-    Task SubmitPoints(List<LineProtocolPoint> points);
-  }
+  void Configure(RabbitOutputConfig config);
+  Task SubmitPoint(LineProtocolPoint point);
+  Task SubmitPoints(List<LineProtocolPoint> points);
 }
