@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32414.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevConsole", "DevConsole\DevConsole.csproj", "{042550C9-F850-41C2-A891-DEAD54332BE8}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rn.NetCore.Metrics.Rabbit", "Rn.NetCore.Metrics.Rabbit\Rn.NetCore.Metrics.Rabbit.csproj", "{ACF14E7F-1F4A-4F83-BE16-3495C8B6D68F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rn.NetCore.Metrics.Rabbit.T1.Tests", "Rn.NetCore.Metrics.Rabbit.T1.Tests\Rn.NetCore.Metrics.Rabbit.T1.Tests.csproj", "{9A1D0683-E7E6-4A01-8F36-D06F31FC4D11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B7B0830D-C93F-4721-AD27-8C89344EE0A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,7 +37,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{ACF14E7F-1F4A-4F83-BE16-3495C8B6D68F} = {28A63668-92E2-472A-BC61-14DF2941B5F4}
-		{9A1D0683-E7E6-4A01-8F36-D06F31FC4D11} = {28A63668-92E2-472A-BC61-14DF2941B5F4}
+		{9A1D0683-E7E6-4A01-8F36-D06F31FC4D11} = {B7B0830D-C93F-4721-AD27-8C89344EE0A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3DDD2D7A-577F-404C-8A03-B9BAC32B80ED}

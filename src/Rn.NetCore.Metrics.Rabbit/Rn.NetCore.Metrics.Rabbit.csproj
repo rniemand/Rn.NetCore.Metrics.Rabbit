@@ -9,6 +9,7 @@
     <Company>Richard Niemand</Company>
     <Description>Core libs for my various projects</Description>
     <NeutralLanguage>en</NeutralLanguage>
+	  <ProjectGuid>6D47280B-9275-42A9-B9E8-D3B0AC4987C6</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
