@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+
+env:
+  PROJECT_NAME: "Rn.NetCore.Metrics.Rabbit"
+
 jobs:
   build:
     name: Build and Publish
@@ -17,15 +21,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-dotnet@v1
-        name: Install .net 5.x
-        with:
-          dotnet-version: '5.0.x'
-
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v2
         name: Install .net 6.x
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: 6.0.x
 
       - name: Cache SonarQube packages
         uses: actions/cache@v1
@@ -57,7 +56,7 @@ jobs:
           $rootDir         = Join-Path $env:GITHUB_WORKSPACE "\";
           $artifactsDir    = Join-Path $rootDir "artifacts\";
           $sqReportPaths   = ($artifactsDir + "t1-coverage/**/coverage.opencover.xml");
-          $projectName     = "Rn.NetCore.Metrics.Rabbit";
+          $projectName     = "${{ env.PROJECT_NAME }}";
           
           $sonarQubeParams = @(
             "/k:`"${{ secrets.SONAR_PROJECT }}`"",
@@ -68,15 +67,13 @@ jobs:
           
           Invoke-Expression (".\.sonar\scanner\dotnet-sonarscanner begin $sonarQubeParams");
           Invoke-Expression (".\.github\ci-build.ps1 -project `"$projectName`"");
-          Invoke-Expression (".\.github\ci-test.ps1 -frameworkVersion `"net6.0`"");
+          Invoke-Expression (".\.github\ci-test.ps1");
           Invoke-Expression (".\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=`"${{ secrets.SONAR_TOKEN }}`"");
           
           # Fin.
 
-      - name: Publish Rn.NetCore.Metrics.Rabbit
-        id: publish_nuget
-        uses: rohith/publish-nuget@v2
-        with:
-          PROJECT_FILE_PATH: src/Rn.NetCore.Metrics.Rabbit/Rn.NetCore.Metrics.Rabbit.csproj
-          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
-          
+      - name: Package
+        run: dotnet pack -c Release -o . src/${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj
+
+      - name: Publish
+        run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
