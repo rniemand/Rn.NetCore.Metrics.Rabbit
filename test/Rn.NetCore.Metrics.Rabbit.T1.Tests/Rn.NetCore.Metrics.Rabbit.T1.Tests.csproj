@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rn.NetCore.Metrics.Rabbit\Rn.NetCore.Metrics.Rabbit.csproj" />
+    <ProjectReference Include="..\..\src\Rn.NetCore.Metrics.Rabbit\Rn.NetCore.Metrics.Rabbit.csproj" />
   </ItemGroup>
 
 </Project>
