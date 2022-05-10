@@ -7,6 +7,8 @@ namespace Rn.NetCore.Metrics.Rabbit.Config;
 // DOCS: docs\configuration\appsettings.md
 public class RabbitOutputConfig
 {
+  public const string ConfigKey = "Rn.Metrics.Rabbit";
+
   [ConfigurationKeyName("enabled")]
   public bool Enabled { get; set; }
 
