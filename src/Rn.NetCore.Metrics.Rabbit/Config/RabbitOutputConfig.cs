@@ -1,11 +1,13 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace Rn.NetCore.Metrics.Rabbit.Config;
 
+// DOCS: docs\configuration\appsettings.md
 public class RabbitOutputConfig
 {
-  [JsonProperty("Enabled"), JsonPropertyName("Enabled")]
+  [ConfigurationKeyName("enabled")]
   public bool Enabled { get; set; }
 
   [JsonProperty("Username"), JsonPropertyName("Username")]

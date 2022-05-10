@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +19,7 @@ public class RabbitMetricOutput : IMetricOutput
   private readonly ILoggerAdapter<RabbitMetricOutput> _logger;
   private readonly IRabbitConnection _connection;
 
-  public const string ConfigKey = "RnCore:Metrics:RabbitOutput";
+  public const string ConfigKey = "Rn.Metrics.Rabbit";
 
   public RabbitMetricOutput(
     ILoggerAdapter<RabbitMetricOutput> logger,
