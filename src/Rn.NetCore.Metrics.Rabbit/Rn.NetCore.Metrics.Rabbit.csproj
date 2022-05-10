@@ -1,21 +1,31 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>6.0.0.105</Version>
+    <Version>6.0.1.100</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Richard Niemand</Authors>
     <Company>Richard Niemand</Company>
     <Description>Core libs for my various projects</Description>
     <NeutralLanguage>en</NeutralLanguage>
 	  <ProjectGuid>6D47280B-9275-42A9-B9E8-D3B0AC4987C6</ProjectGuid>
+	  <PackageProjectUrl>https://github.com/rniemand/Rn.NetCore.Metrics.Rabbit</PackageProjectUrl>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <RepositoryUrl>https://github.com/rniemand/Rn.NetCore.Metrics.Rabbit</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RabbitMQ.Client" Version="6.2.4" />
-    <PackageReference Include="Rn.NetCore.Common" Version="6.0.0.109" />
-    <PackageReference Include="Rn.NetCore.Metrics" Version="6.0.0.103" />
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="6.3.0" />
+    <PackageReference Include="Rn.NetCore.Common" Version="6.0.1.100" />
+    <PackageReference Include="Rn.NetCore.Metrics" Version="6.0.1.100" />
   </ItemGroup>
 
 </Project>

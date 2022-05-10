@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -18,9 +18,7 @@ public class RabbitMetricOutput : IMetricOutput
 
   private readonly ILoggerAdapter<RabbitMetricOutput> _logger;
   private readonly IRabbitConnection _connection;
-
-  public const string ConfigKey = "RnCore:Metrics:RabbitOutput";
-
+  
   public RabbitMetricOutput(
     ILoggerAdapter<RabbitMetricOutput> logger,
     IRabbitConnection connection,
@@ -65,14 +63,13 @@ public class RabbitMetricOutput : IMetricOutput
   {
     // TODO: [TESTS] (RabbitMetricOutput.BindConfiguration) Add tests
     var boundConfiguration = new RabbitOutputConfig();
-    var configSection = configuration.GetSection(ConfigKey);
+    var configSection = configuration.GetSection(RabbitOutputConfig.ConfigKey);
 
     if (!configSection.Exists())
     {
       _logger.LogWarning(
         "Unable to find configuration section '{key}', using defaults",
-        ConfigKey
-      );
+        RabbitOutputConfig.ConfigKey);
 
       return boundConfiguration;
     }
