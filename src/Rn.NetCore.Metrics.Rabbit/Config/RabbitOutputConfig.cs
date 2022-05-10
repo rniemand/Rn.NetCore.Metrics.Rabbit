@@ -1,6 +1,4 @@
-using System.Text.Json.Serialization;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace Rn.NetCore.Metrics.Rabbit.Config;
 
@@ -12,52 +10,36 @@ public class RabbitOutputConfig
   [ConfigurationKeyName("enabled")]
   public bool Enabled { get; set; }
 
-  [JsonProperty("Username"), JsonPropertyName("Username")]
-  public string Username { get; set; }
+  [ConfigurationKeyName("username")]
+  public string Username { get; set; } = "guest";
 
-  [JsonProperty("Password"), JsonPropertyName("Password")]
-  public string Password { get; set; }
+  [ConfigurationKeyName("password")]
+  public string Password { get; set; } = "guest";
 
-  [JsonProperty("VirtualHost"), JsonPropertyName("VirtualHost")]
-  public string VirtualHost { get; set; }
+  [ConfigurationKeyName("virtualHost")]
+  public string VirtualHost { get; set; } = "/";
 
-  [JsonProperty("Host"), JsonPropertyName("Host")]
-  public string Host { get; set; }
+  [ConfigurationKeyName("host")]
+  public string Host { get; set; } = "127.0.0.1";
 
-  [JsonProperty("Port"), JsonPropertyName("Port")]
-  public int Port { get; set; }
+  [ConfigurationKeyName("port")]
+  public int Port { get; set; } = 5672;
 
-  [JsonProperty("Exchange"), JsonPropertyName("Exchange")]
-  public string Exchange { get; set; }
+  [ConfigurationKeyName("exchange")]
+  public string Exchange { get; set; } = "amq.topic";
 
-  [JsonProperty("RoutingKey"), JsonPropertyName("RoutingKey")]
-  public string RoutingKey { get; set; }
+  [ConfigurationKeyName("routingKey")]
+  public string RoutingKey { get; set; } = "rn_core.metrics";
 
-  [JsonProperty("BackOffTimeSec"), JsonPropertyName("BackOffTimeSec")]
-  public int BackOffTimeSec { get; set; }
+  [ConfigurationKeyName("backOffTimeSec")]
+  public int BackOffTimeSec { get; set; } = 15;
 
-  [JsonProperty("CoolDownTimeSec"), JsonPropertyName("CoolDownTimeSec")]
-  public int CoolDownTimeSec { get; set; }
+  [ConfigurationKeyName("coolDownTimeSec")]
+  public int CoolDownTimeSec { get; set; } = 300;
 
-  [JsonProperty("CoolDownThreshold"), JsonPropertyName("CoolDownThreshold")]
-  public int CoolDownThreshold { get; set; }
+  [ConfigurationKeyName("coolDownThreshold")]
+  public int CoolDownThreshold { get; set; } = 3;
 
-  [JsonProperty("MaxCoolDownRuns"), JsonPropertyName("MaxCoolDownRuns")]
-  public int MaxCoolDownRuns { get; set; }
-
-  public RabbitOutputConfig()
-  {
-    Enabled = false;
-    Username = "guest";
-    Password = "guest";
-    VirtualHost = "/";
-    Host = "127.0.0.1";
-    Port = 5672;
-    Exchange = "amq.topic";
-    RoutingKey = "rn_core.metrics";
-    BackOffTimeSec = 15;
-    CoolDownTimeSec = 300;
-    CoolDownThreshold = 3;
-    MaxCoolDownRuns = 0;
-  }
+  [ConfigurationKeyName("maxCoolDownRuns")]
+  public int MaxCoolDownRuns { get; set; } = 0;
 }
