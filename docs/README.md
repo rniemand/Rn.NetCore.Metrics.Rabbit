@@ -1,9 +1,11 @@
 [Home](/README.md) / Docs
 
 # Documentation
-Nothing to see here.
+Starter documentation for `Rn.NetCore.Metrics.Rabbit`.
+
+More to come...
 
 <!--(Rn.BuildScriptHelper){
-	"version": "1.0.106",
-	"replace": false
+	"version": "1.0.107",
+	"replace": true
 }(END)-->
