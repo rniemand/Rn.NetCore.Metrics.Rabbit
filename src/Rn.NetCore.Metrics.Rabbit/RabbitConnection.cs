@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -33,7 +33,6 @@ public class RabbitConnection : IRabbitConnection
     IRabbitFactory rabbitFactory,
     IDateTimeAbstraction dateTime)
   {
-    // TODO: [TESTS] (RabbitConnection) Add tests
     _logger = logger;
     _rabbitFactory = rabbitFactory;
     _dateTime = dateTime;
@@ -49,7 +48,6 @@ public class RabbitConnection : IRabbitConnection
   // Interface methods
   public void Configure(RabbitOutputConfig config)
   {
-    // TODO: [TESTS] (RabbitConnection.Configure) Add tests
     _config = config;
     _connectionEnabled = config.Enabled;
 
@@ -63,13 +61,11 @@ public class RabbitConnection : IRabbitConnection
 
   public async Task SubmitPoint(LineProtocolPoint point)
   {
-    // TODO: [TESTS] (RabbitConnection.SubmitPoint) Add tests
     await SubmitPoints(new List<LineProtocolPoint> { point });
   }
 
   public async Task SubmitPoints(List<LineProtocolPoint> points)
   {
-    // TODO: [TESTS] (RabbitConnection.SubmitPoints) Add tests
     if (!CanSubmitPoints())
       return;
 
@@ -81,7 +77,6 @@ public class RabbitConnection : IRabbitConnection
   // Connection related methods
   private void TearDownConnection()
   {
-    // TODO: [TESTS] (RabbitConnection.TearDownConnection) Add tests
     if (_channel == null && _connection == null)
       return;
 
@@ -106,14 +101,12 @@ public class RabbitConnection : IRabbitConnection
 
   private void CreateConnectionFactory()
   {
-    // TODO: [TESTS] (RabbitConnection.CreateConnectionFactory) Add tests
     _logger.LogTrace("Creating new connection factory");
     _connectionFactory = _rabbitFactory.CreateConnectionFactory(_config);
   }
 
   private void RecreateConnection()
   {
-    // TODO: [TESTS] (RabbitConnection.RecreateConnection) Add tests
     TearDownConnection();
 
     try
@@ -131,7 +124,6 @@ public class RabbitConnection : IRabbitConnection
 
   private bool CurrentlyConnected()
   {
-    // TODO: [TESTS] (RabbitConnection.CurrentlyConnected) Add tests
     if (!(_connection?.IsOpen ?? false))
       return false;
 
@@ -142,7 +134,6 @@ public class RabbitConnection : IRabbitConnection
   // Point submitting related methods
   private bool CanSubmitPoints()
   {
-    // TODO: [TESTS] (RabbitConnection.CanSubmitPoints) Add tests
     // Check to see if we have been disabled via "HandleMaxCoolDownRuns()"
     if (!_connectionEnabled)
       return false;
@@ -170,7 +161,6 @@ public class RabbitConnection : IRabbitConnection
 
   private static string GeneratePayload(IEnumerable<LineProtocolPoint> points)
   {
-    // TODO: [TESTS] (RabbitConnection.GeneratePayload) Add tests
     using var sw = new StringWriter();
     foreach (var point in points)
     {
@@ -183,7 +173,6 @@ public class RabbitConnection : IRabbitConnection
 
   private void PublishPoints(IReadOnlyCollection<LineProtocolPoint> points)
   {
-    // TODO: [TESTS] (RabbitConnection.PublishPoints) Add tests
     if (points.Count == 0)
       return;
 
@@ -209,7 +198,6 @@ public class RabbitConnection : IRabbitConnection
   // Backing-off related methods
   private void HandleConnectionSuccess()
   {
-    // TODO: [TESTS] (RabbitConnection.HandleConnectionSuccess) Add tests
     _disabledUntil = null;
     _connectionErrorCount = 0;
     _coolDownRunCount = 0;
@@ -217,7 +205,6 @@ public class RabbitConnection : IRabbitConnection
 
   private void HandleConnectionError()
   {
-    // TODO: [TESTS] (RabbitConnection.HandleConnectionError) Add tests
     _connectionErrorCount += 1;
 
     // Enter cooldown if we hit the configured threshold
@@ -239,7 +226,6 @@ public class RabbitConnection : IRabbitConnection
 
   private void HandleCoolDown()
   {
-    // TODO: [TESTS] (RabbitConnection.HandleCoolDown) Add tests
     _connectionErrorCount = 0;
     _coolDownRunCount += 1;
 
@@ -262,7 +248,6 @@ public class RabbitConnection : IRabbitConnection
 
   private void HandleMaxCoolDownRuns()
   {
-    // TODO: [TESTS] (RabbitConnection.HandleMaxCoolDownRuns) Add tests
     _logger.LogError("It seems that we are unable to connect to RabbitMQ, disabling output");
 
     _connectionEnabled = false;

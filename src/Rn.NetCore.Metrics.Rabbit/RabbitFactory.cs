@@ -1,4 +1,4 @@
-﻿using RabbitMQ.Client;
+using RabbitMQ.Client;
 using Rn.NetCore.Metrics.Rabbit.Config;
 using Rn.NetCore.Metrics.Rabbit.Interfaces;
 
@@ -8,7 +8,6 @@ public class RabbitFactory : IRabbitFactory
 {
   public IConnectionFactory CreateConnectionFactory(RabbitOutputConfig config)
   {
-    // TODO: [TESTS] (RabbitFactory.CreateConnectionFactory) Add tests
     return new ConnectionFactory
     {
       UserName = config.Username,

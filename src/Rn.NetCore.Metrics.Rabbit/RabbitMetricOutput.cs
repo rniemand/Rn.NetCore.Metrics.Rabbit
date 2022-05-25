@@ -24,7 +24,6 @@ public class RabbitMetricOutput : IMetricOutput
     IRabbitConnection connection,
     IConfiguration configuration)
   {
-    // TODO: [TESTS] (RabbitMetricOutput) Add tests
     _logger = logger;
     _connection = connection;
     var config = BindConfiguration(configuration);
@@ -45,7 +44,6 @@ public class RabbitMetricOutput : IMetricOutput
 
   public async Task SubmitMetrics(List<CoreMetric> metrics)
   {
-    // TODO: [TESTS] (RabbitMetricOutput.SubmitMetrics) Add tests
     var points = metrics.Select(metric =>
       new LineProtocolPoint(
         metric.Measurement,
@@ -61,7 +59,6 @@ public class RabbitMetricOutput : IMetricOutput
   // Configuration related methods
   private RabbitOutputConfig BindConfiguration(IConfiguration configuration)
   {
-    // TODO: [TESTS] (RabbitMetricOutput.BindConfiguration) Add tests
     var boundConfiguration = new RabbitOutputConfig();
     var configSection = configuration.GetSection(RabbitOutputConfig.ConfigKey);
 
