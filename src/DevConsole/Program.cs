@@ -1,84 +1,20 @@
 using System;
-using System.IO;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
-using Rn.NetCore.Common.Abstractions;
-using Rn.NetCore.Common.Helpers;
-using Rn.NetCore.Common.Logging;
 using Rn.NetCore.Metrics;
 using Rn.NetCore.Metrics.Builders;
-using Rn.NetCore.Metrics.Extensions;
-using Rn.NetCore.Metrics.Outputs;
-using Rn.NetCore.Metrics.Rabbit;
-using Rn.NetCore.Metrics.Rabbit.Extensions;
-using Rn.NetCore.Metrics.Rabbit.Interfaces;
 
 namespace DevConsole;
 
 class Program
 {
-  private static IServiceProvider _serviceProvider;
-  private static ILoggerAdapter<Program> _logger;
+  private static readonly IServiceProvider ServiceProvider = DIContainer.GetContainer();
 
   static void Main(string[] args)
   {
-    ConfigureDI();
-
-    var metrics = _serviceProvider.GetRequiredService<IMetricService>();
+    var metrics = ServiceProvider.GetRequiredService<IMetricService>();
 
     var builder = new ServiceMetricBuilder(nameof(Program), nameof(Main));
 
     metrics.SubmitBuilder(builder);
-
-    _logger.LogInformation("All Done!");
-  }
-
-
-  // DI related methods
-  private static void ConfigureDI()
-  {
-    var services = new ServiceCollection();
-
-    var config = new ConfigurationBuilder()
-      .SetBasePath(Directory.GetCurrentDirectory())
-      .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-      .Build();
-
-    services
-      // Configuration
-      .AddSingleton<IConfiguration>(config)
-
-      // Abstractions
-      .AddSingleton<IDateTimeAbstraction, DateTimeAbstraction>()
-      .AddSingleton<IEnvironmentAbstraction, EnvironmentAbstraction>()
-      .AddSingleton<IDirectoryAbstraction, DirectoryAbstraction>()
-      .AddSingleton<IFileAbstraction, FileAbstraction>()
-
-      // Helpers
-      .AddSingleton<IJsonHelper, JsonHelper>()
-
-      // Wrappers
-      .AddSingleton<IPathAbstraction, PathAbstraction>()
-
-      // Metrics
-      .AddRnMetricsBase()
-      .AddRnRabbitMQMetrics()
-
-      // Logging
-      .AddSingleton(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>))
-      .AddLogging(loggingBuilder =>
-      {
-        // configure Logging with NLog
-        loggingBuilder.ClearProviders();
-        loggingBuilder.SetMinimumLevel(LogLevel.Trace);
-        loggingBuilder.AddNLog(config);
-      });
-
-    _serviceProvider = services.BuildServiceProvider();
-
-    _serviceProvider = services.BuildServiceProvider();
-    _logger = _serviceProvider.GetService<ILoggerAdapter<Program>>();
   }
 }
