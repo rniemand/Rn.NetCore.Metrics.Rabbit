@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,18 +23,11 @@ internal class DIContainer
       .Build();
 
     services
-      // Configuration
       .AddSingleton<IConfiguration>(config)
-
-      // Abstractions
       .AddSingleton<IEnvironmentAbstraction, EnvironmentAbstraction>()
       .AddSingleton<IDirectoryAbstraction, DirectoryAbstraction>()
       .AddSingleton<IFileAbstraction, FileAbstraction>()
-
-      // Helpers
       .AddSingleton<IJsonHelper, JsonHelper>()
-
-      // Wrappers
       .AddSingleton<IPathAbstraction, PathAbstraction>()
 
       // Metrics

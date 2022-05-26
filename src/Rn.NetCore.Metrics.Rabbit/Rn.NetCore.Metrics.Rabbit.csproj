@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>6.0.1.100</Version>
+    <Version>6.0.1.101</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Richard Niemand</Authors>
     <Company>Richard Niemand</Company>
