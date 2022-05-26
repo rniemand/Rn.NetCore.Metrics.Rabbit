@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,8 +9,10 @@ using Rn.NetCore.Common.Helpers;
 using Rn.NetCore.Common.Logging;
 using Rn.NetCore.Metrics;
 using Rn.NetCore.Metrics.Builders;
+using Rn.NetCore.Metrics.Extensions;
 using Rn.NetCore.Metrics.Outputs;
 using Rn.NetCore.Metrics.Rabbit;
+using Rn.NetCore.Metrics.Rabbit.Extensions;
 using Rn.NetCore.Metrics.Rabbit.Interfaces;
 
 namespace DevConsole;
@@ -61,11 +63,8 @@ class Program
       .AddSingleton<IPathAbstraction, PathAbstraction>()
 
       // Metrics
-      .AddSingleton<IMetricServiceUtils, MetricServiceUtils>()
-      .AddSingleton<IMetricService, MetricService>()
-      .AddSingleton<IRabbitFactory, RabbitFactory>()
-      .AddSingleton<IRabbitConnection, RabbitConnection>()
-      .AddSingleton<IMetricOutput, RabbitMetricOutput>()
+      .AddRnMetricsBase()
+      .AddRnRabbitMQMetrics()
 
       // Logging
       .AddSingleton(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>))
