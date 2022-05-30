@@ -29,10 +29,11 @@ internal class DIContainer
       .AddSingleton<IFileAbstraction, FileAbstraction>()
       .AddSingleton<IJsonHelper, JsonHelper>()
       .AddSingleton<IPathAbstraction, PathAbstraction>()
+      .AddSingleton<IDateTimeAbstraction, DateTimeAbstraction>()
 
       // Metrics
-      .AddRnMetricsBase()
-      .AddRnRabbitMQMetrics()
+      .AddRnMetricsBase(config)
+      .AddRnMetricRabbitMQ()
 
       // Logging
       .AddLogging(loggingBuilder =>

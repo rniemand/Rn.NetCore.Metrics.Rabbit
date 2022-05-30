@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Rn.NetCore.Metrics.Rabbit.Config;
 using Rn.NetCore.Metrics.Rabbit.Models;
 
-namespace Rn.NetCore.Metrics.Rabbit.Interfaces;
+namespace Rn.NetCore.Metrics.Rabbit;
 
 public interface IRabbitConnection
 {

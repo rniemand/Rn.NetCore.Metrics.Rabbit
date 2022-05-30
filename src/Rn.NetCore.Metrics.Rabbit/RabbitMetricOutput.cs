@@ -3,14 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Rn.NetCore.Common.Logging;
-using Rn.NetCore.Metrics.Models;
 using Rn.NetCore.Metrics.Outputs;
 using Rn.NetCore.Metrics.Rabbit.Config;
-using Rn.NetCore.Metrics.Rabbit.Interfaces;
 using Rn.NetCore.Metrics.Rabbit.Models;
 
 namespace Rn.NetCore.Metrics.Rabbit;
 
+// DOCS: docs\RabbitMetricOutput.md
 public class RabbitMetricOutput : IMetricOutput
 {
   public bool Enabled { get; }

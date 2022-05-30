@@ -3,4 +3,4 @@
 # Configuration
 Configuration for the **Rn.NetCore.Metrics.Rabbit** package.
 
-- [appsettings.json](/docs/configuration/appsettings.md) - configuration values expected in `appsettings.json`.
+- [appsettings.json](/docs/config/appsettings.md) - configuration values expected in `appsettings.json`.
