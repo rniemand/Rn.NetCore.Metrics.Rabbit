@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Rn.NetCore.Common.Logging;
 using Rn.NetCore.Metrics.Outputs;
 using Rn.NetCore.Metrics.Rabbit.Config;
-using Rn.NetCore.Metrics.Rabbit.Interfaces;
 using Rn.NetCore.Metrics.Rabbit.Models;
 
 namespace Rn.NetCore.Metrics.Rabbit;

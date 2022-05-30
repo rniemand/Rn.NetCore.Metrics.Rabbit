@@ -7,7 +7,7 @@ using RabbitMQ.Client;
 using Rn.NetCore.Common.Abstractions;
 using Rn.NetCore.Common.Logging;
 using Rn.NetCore.Metrics.Rabbit.Config;
-using Rn.NetCore.Metrics.Rabbit.Interfaces;
+using Rn.NetCore.Metrics.Rabbit.Factories;
 using Rn.NetCore.Metrics.Rabbit.Models;
 
 namespace Rn.NetCore.Metrics.Rabbit;
