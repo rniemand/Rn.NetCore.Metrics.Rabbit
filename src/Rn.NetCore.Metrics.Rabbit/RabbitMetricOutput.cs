@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Rn.NetCore.Common.Logging;
-using Rn.NetCore.Metrics.Models;
 using Rn.NetCore.Metrics.Outputs;
 using Rn.NetCore.Metrics.Rabbit.Config;
 using Rn.NetCore.Metrics.Rabbit.Interfaces;

@@ -31,7 +31,7 @@ internal class DIContainer
       .AddSingleton<IPathAbstraction, PathAbstraction>()
 
       // Metrics
-      .AddRnMetricsBase()
+      .AddRnMetricsBase(config)
       .AddRnRabbitMQMetrics()
 
       // Logging
