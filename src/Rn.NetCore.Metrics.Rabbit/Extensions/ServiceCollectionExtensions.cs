@@ -6,6 +6,7 @@ using Rn.NetCore.Metrics.Rabbit.Factories;
 
 namespace Rn.NetCore.Metrics.Rabbit.Extensions;
 
+// DOCS: docs\extensions\ServiceCollectionExtensions.md
 public static class ServiceCollectionExtensions
 {
   public static IServiceCollection AddRnMetricRabbitMQ(this IServiceCollection services)

@@ -9,6 +9,7 @@ using Rn.NetCore.Metrics.Rabbit.Models;
 
 namespace Rn.NetCore.Metrics.Rabbit;
 
+// DOCS: docs\RabbitMetricOutput.md
 public class RabbitMetricOutput : IMetricOutput
 {
   public bool Enabled { get; }

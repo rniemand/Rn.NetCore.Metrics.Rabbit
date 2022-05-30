@@ -1,9 +1,9 @@
 using RabbitMQ.Client;
 using Rn.NetCore.Metrics.Rabbit.Config;
-using Rn.NetCore.Metrics.Rabbit.Factories;
 
-namespace Rn.NetCore.Metrics.Rabbit;
+namespace Rn.NetCore.Metrics.Rabbit.Factories;
 
+// DOCS: docs\factories\RabbitFactory.md
 public class RabbitFactory : IRabbitFactory
 {
   public IConnectionFactory CreateConnectionFactory(RabbitOutputConfig config)

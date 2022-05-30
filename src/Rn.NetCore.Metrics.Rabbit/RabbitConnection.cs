@@ -12,6 +12,7 @@ using Rn.NetCore.Metrics.Rabbit.Models;
 
 namespace Rn.NetCore.Metrics.Rabbit;
 
+// DOCS: docs\RabbitConnection.md
 public class RabbitConnection : IRabbitConnection
 {
   private readonly ILoggerAdapter<RabbitConnection> _logger;
