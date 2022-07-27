@@ -15,6 +15,6 @@ class Program
 
     var builder = new ServiceMetricBuilder(nameof(Program), nameof(Main));
 
-    metrics.SubmitMetric(builder);
+    metrics.Submit(builder);
   }
 }
