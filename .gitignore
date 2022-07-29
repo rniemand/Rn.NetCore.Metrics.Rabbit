@@ -231,6 +231,4 @@ _Pvt_Extensions
 
 src/OnCall\.ApplicationDB/OnCall\.ApplicationDB\.jfm
 
-#(Rn.BuildScriptHelper){
-#  "version": "1.0.107"
-#}(END)
+\.github/\.sonarqube/

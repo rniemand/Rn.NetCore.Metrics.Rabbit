@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rn.NetCore.Metrics.Rabbit",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B7B0830D-C93F-4721-AD27-8C89344EE0A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rn.NetCore.Metrics.Rabbit.T1.Tests", "..\test\Rn.NetCore.Metrics.Rabbit.T1.Tests\Rn.NetCore.Metrics.Rabbit.T1.Tests.csproj", "{3DDB3EA5-EF2D-422B-BBF3-3A3F60E061FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rn.NetCore.Metrics.Rabbit.T1.Tests", "..\tests\Rn.NetCore.Metrics.Rabbit.T1.Tests\Rn.NetCore.Metrics.Rabbit.T1.Tests.csproj", "{3DDB3EA5-EF2D-422B-BBF3-3A3F60E061FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
